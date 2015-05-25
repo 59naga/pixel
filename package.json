@@ -38,7 +38,7 @@
       "browserify": "browserify ./src -t coffeeify -s Pixel --extension .coffee",
 
     "Bower update":"",
-      "update": "git tag v$(opc bower version) && git push --tags"
+      "update": "git tag v$(opc package version) && git push --tags"
   },
   
   "author": "59naga <i59naga@icloud.com> (http://berabou.me)",
