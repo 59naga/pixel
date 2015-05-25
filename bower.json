@@ -1,0 +1,17 @@
+{
+  "name": "pixel",
+  "description": "Slice an image to frames and pixels",
+
+  "main": "pixel.js",
+
+  "authors": [
+    "59naga <i59naga@icloud.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ]
+}
