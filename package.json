@@ -55,7 +55,7 @@
     "browserify": "^10.2.1",
     "coffeeify": "^1.1.0",
     "jasminetea": "^0.2.0-alpha.3",
-    "object-parser": "0.0.1-alpha.3",
+    "object-parser-cli": "0.0.0",
     "zuul": "59naga/zuul"
   },
 
