@@ -7,16 +7,16 @@ fs= require 'fs'
 
 # Public
 class Pixel extends Parser
-  # Static
-  @create: (file)->
+  # API
+  @parse: (file)->
     imagedata= new Pixel
 
     unless window?
       imagedata.load file
     else
-      imagedata.create file
+      imagedata.fetch file
 
-  # node.js
+  # Node.js API
   load: (file)->
     type= @getType file
     extension= @getExtension file
@@ -51,8 +51,8 @@ class Pixel extends Parser
 
       resolve [null,buffer]
 
-  # browser
-  create: (file)->
+  # Browser API
+  fetch: (file)->
     type= @getType file
     extension= @getExtension file
 
@@ -63,16 +63,24 @@ class Pixel extends Parser
         xhr.responseType= 'arraybuffer'
         xhr.overrideMimeType 'application/binary' if xhr.overrideMimeType
         xhr.send()
-        xhr.onerror= reject
+
+        xhr.onerror= (error)->
+          console.log error
         xhr.onload= =>
           @gif new Uint8Array xhr.response
           .then (images)->
             resolve images
     else
-      new Promise (resolve)->
+      new Promise (resolve)=>
+        url= file
+        url= @createObjectURL file if type is 'datauri'
+
         image= new Image
         image.crossOrigin= 'Anonymous'
-        image.src= file
+        image.src= url
+
+        image.onerror= (error)->
+          console.log error
         image.onload= ->
           context= document.createElement('canvas').getContext '2d'
           context.canvas.width= image.width

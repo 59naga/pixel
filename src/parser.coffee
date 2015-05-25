@@ -24,6 +24,17 @@ class Parser
 
       resolve [imageType,buffer]
 
+  # http://stackoverflow.com/questions/4998908/convert-data-uri-to-file-then-append-to-formdata
+  createObjectURL: (datauri)->
+    binary= atob datauri.slice datauri.indexOf(',')+1
+    mimeType= datauri.match(/image\/\w*/)?[0]
+
+    arrayBuffer= new ArrayBuffer binary.length
+    data= new Uint8Array arrayBuffer
+    data[i]= binary.charCodeAt i for i in [0..binary.length]
+
+    URL.createObjectURL new Blob [data],{type:mimeType}
+
   gif: (buffer)->
     new Promise (resolve)->
       reader= new GifReader buffer
@@ -31,11 +42,14 @@ class Parser
       images=
         for i in [0...reader.numFrames()]
 
-          frame= reader.frameInfo i
-          frame.data= new Uint8Array reader.width * reader.height * 4
-          reader.decodeAndBlitFrameRGBA 0,frame.data
+          image= {}
+          image= new ImageData reader.width,reader.height if ImageData?
+          image[key]= value for key,value of reader.frameInfo i
+          image.delay= image.delay*10 if image.delay # bugfix
+          image.data= new Uint8Array reader.width * reader.height * 4
+          reader.decodeAndBlitFrameRGBA i,image.data
 
-          frame
+          image
 
       resolve images
 
@@ -50,9 +64,6 @@ class Parser
 
         image.data= Parser.to4ch image.data,image.channels
         resolve [image]
-
-  gifTest: (buffer)->
-    reader= new GifReader buffer
 
   @to4ch: (data,channels)->
     if channels<4

@@ -1,12 +1,14 @@
 {
   "name": "pixel",
-  "description": "Slice an image to frames and pixels",
+  "description": "Get the Animated/Static ImageData",
 
   "main": "pixel.js",
 
   "authors": [
     "59naga <i59naga@icloud.com>"
   ],
+  "homepage": "https://github.com/59naga/pixel",
+
   "license": "MIT",
   "ignore": [
     "**/.*",

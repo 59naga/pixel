@@ -1,7 +1,7 @@
 {
   "name": "pixel",
-  "version": "0.0.0-alpha.0",
-  "description": "Slice an image to frames and pixels",
+  "version": "0.0.0-alpha.1",
+  "description": "Cross-platform ImageData",
 
   "files": [
     "index.js",
@@ -15,13 +15,14 @@
   },
   "scripts": {
     "default": "jasminetea test --verbose --lint",
+    "cover": "$(opc package scripts.default) --cover --report",
     "localhost": "zuul test/spec.coffee --ui jasmine2 --local 59798 --open",
 
     "Developer commands":"",
       "start": "$(opc package scripts.default) --watch",
 
     "Travis-CI commands":"",
-      "test": "$(opc package scripts.default) --cover --report",
+      "test": "npm run cover",
       "posttest": "zuul test/spec.coffee --report",
 
     "Npm update via Travis-CI":"",
@@ -31,13 +32,13 @@
       "postcompile": "coffee --output lib --bare --compile src",
 
     "Bower build":"",
-      "build": "$(opc package scripts.browserify) > $(opc bower main)",
+      "build": "$(opc package scripts.browserify) | uglifyjs -cm > $(opc bower main)",
       "postbuild": "wc -c $(opc bower main)",
 
       "browserify": "browserify ./src -t coffeeify -s Pixel --extension .coffee",
 
     "Bower update":"",
-      "update": "git tag v$(opc bower version) &&  git push --tags"
+      "update": "git tag v$(opc bower version) && git push --tags"
   },
   
   "author": "59naga <i59naga@icloud.com> (http://berabou.me)",
@@ -56,6 +57,7 @@
     "coffeeify": "^1.1.0",
     "jasminetea": "^0.2.0-alpha.3",
     "object-parser-cli": "0.0.0",
+    "uglify-js": "^2.4.23",
     "zuul": "^3.0.0"
   },
 
