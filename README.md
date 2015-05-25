@@ -5,11 +5,6 @@
 > Get the Animated/Static ImageData
 
 ## Installation
-```bash
-$ npm install pixel
-```
-
-## Installation
 ### Via npm
 ```bash
 $ npm install pixel --save
@@ -32,14 +27,10 @@ $ bower install pixel --save
 
 # API
 
-## Pixel.parse(<url/datauri/path>) -> promise
+## Pixel.parse(`url`/`datauri`/`path`) -> promise
 
 return Array contains one or more `ImageData`.
 > Return the `object` instead of `ImageData` at Node.js
-
-Support:
-* gif (static/animation)
-* png, jpeg
 
 ```js
 var url= 'https://59naga.github.io/fixtures/animated.GIF';
@@ -77,6 +68,10 @@ Pixel.parse(url).then(function(images){
   nextImage();
 });
 ```
+
+## Support
+* gif (static/animation)
+* png, jpeg
 
 License
 ---

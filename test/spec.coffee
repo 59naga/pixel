@@ -3,7 +3,7 @@ Pixel= require '../src'
 
 fs= require 'fs'
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL= 3000
+jasmine.DEFAULT_TIMEOUT_INTERVAL= 5000
 
 # Specs
 describe 'Pixel',->

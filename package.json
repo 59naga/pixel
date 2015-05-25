@@ -10,7 +10,7 @@
 
   "config": {
     "ghooks": {
-      "pre-commit": "npm run build && npm run test"
+      "pre-commit": "npm run build && npm run cover"
     }
   },
   "scripts": {
@@ -55,6 +55,7 @@
     "brfs": "^1.4.0",
     "browserify": "^10.2.1",
     "coffeeify": "^1.1.0",
+    "ghooks": "^0.3.2",
     "jasminetea": "^0.2.0-alpha.3",
     "object-parser-cli": "0.0.0",
     "uglify-js": "^2.4.23",
