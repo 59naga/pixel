@@ -1,19 +1,21 @@
 ui: jasmine2
 browsers:
-  # - name: chrome
-  #   version: latest
-  # - name: firefox
-  #   version: latest
-  # - name: safari
-  #   version: latest
-  # - name: opera
-  #   version: latest
-  - name: ie
-    version: 9..latest
-  # - name: iphone
-  #   version: 7.1..latest
-  # - name: android
-  #   version: 4.1..latest
+  - name: ipad
+    version: [4.3, 5.0, 5.1, 6.0, 6.1, 7.0, 7.1, 8.0, 8.1, 8.2]
+  - name: firefox
+    version: [3.0, 3.5, 3.6, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, dev, beta]
+  - name: iphone
+    version: [4.3, 5.0, 5.1, 6.0, 6.1, 7.0, 7.1, 8.0, 8.1, 8.2]
+  - name: safari
+    version: [5, 6, 7, 8]
+  - name: chrome
+    version: [26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, beta, dev]
+  - name: opera
+    version: [11, 12]
+  - name: internet explorer
+    version: [6, 7, 8, 9, 10, 11]
+  - name: android
+    version: [4.0, 4.1, 4.2, 4.3, 4.4, 5.0, 5.1]
 
 browserify:
   - transform: coffeeify
