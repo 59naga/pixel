@@ -2,8 +2,10 @@
 Parser= require './parser'
 
 Promise= require 'bluebird'
-request= require 'request'
-fs= require 'fs'
+
+unless window?
+  request= require 'request'
+  fs= require 'fs'
 
 # Public
 class Pixel extends Parser
@@ -15,6 +17,47 @@ class Pixel extends Parser
       imagedata.load file
     else
       imagedata.fetch file
+
+  # Browser API
+  fetch: (file)->
+    type= @getType file
+    extension= @getExtension file
+
+    if extension is 'gif'
+      new Promise (resolve,reject)=>
+        xhr= new XMLHttpRequest
+        xhr.open 'GET',file,true
+        xhr.responseType= 'arraybuffer'
+        xhr.send()
+
+        xhr.onload= =>
+          return reject xhr.statusText unless xhr.readyState is 4
+
+          @gif new Uint8Array xhr.response
+          .then (images)->
+            resolve images
+        xhr.onerror= (error)->
+          reject xhr.statusText
+    else
+      new Promise (resolve,reject)=>
+        url= file
+        url= @createObjectURL file if type is 'datauri'
+
+        image= new Image
+        image.crossOrigin= 'Anonymous'
+        image.src= url
+
+        image.onerror= (error)->
+          reject error
+        image.onload= ->
+          context= document.createElement('canvas').getContext '2d'
+          context.canvas.width= image.width
+          context.canvas.height= image.height
+          context.drawImage image,0,0
+
+          imageData= context.getImageData 0,0,image.width,image.height
+
+          resolve [imageData]
 
   # Node.js API
   load: (file)->
@@ -50,43 +93,5 @@ class Pixel extends Parser
       buffer= fs.readFileSync file
 
       resolve [null,buffer]
-
-  # Browser API
-  fetch: (file)->
-    type= @getType file
-    extension= @getExtension file
-
-    if extension is 'gif'
-      new Promise (resolve,reject)=>
-        xhr= new XMLHttpRequest
-        xhr.open 'GET',file,true
-        xhr.responseType= 'arraybuffer'
-        xhr.overrideMimeType 'application/binary' if xhr.overrideMimeType
-        xhr.send()
-
-        xhr.onerror= (error)->
-          console.log error
-        xhr.onload= =>
-          @gif new Uint8Array xhr.response
-          .then (images)->
-            resolve images
-    else
-      new Promise (resolve)=>
-        url= file
-        url= @createObjectURL file if type is 'datauri'
-
-        image= new Image
-        image.crossOrigin= 'Anonymous'
-        image.src= url
-
-        image.onerror= (error)->
-          console.log error
-        image.onload= ->
-          context= document.createElement('canvas').getContext '2d'
-          context.canvas.width= image.width
-          context.canvas.height= image.height
-          context.drawImage image,0,0
-
-          resolve [context.getImageData 0,0,image.width,image.height]
 
 module.exports= Pixel

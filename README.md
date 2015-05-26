@@ -2,7 +2,7 @@
 
 [![Sauce Test Status][sauce-image]][sauce]
 
-> Get the Animated/Static ImageData
+> Parse file/buffer/datauri to ImageData in cross-platform
 
 ## Installation
 ### Via npm
@@ -32,9 +32,13 @@ $ bower install pixel --save
 return Array contains one or more `ImageData`.
 > Return the `object` instead of `ImageData` at Node.js
 
-```js
+### Example in browser
+```html
+<body>
+
+<script>
 var url= 'https://59naga.github.io/fixtures/animated.GIF';
-var canvas= document.querySelector('#pixel');
+var canvas= document.body.appendChild(document.createElement('canvas'));
 var context= canvas.getContext('2d');
 
 Pixel.parse(url).then(function(images){
@@ -67,11 +71,41 @@ Pixel.parse(url).then(function(images){
 
   nextImage();
 });
+</script>
+
+</body>
+```
+
+### Example in node.js
+
+```js
+var url= 'https://59naga.github.io/fixtures/animated.GIF';
+
+Pixel.parse(url).then(function(images){
+  var i= 0;
+
+  var nextImage= function(){
+    var imageData= images[i++];
+    if(imageData==null) return;
+
+    console.log(imageData.width, imageData.height, imageData.data.length);
+    nextImage();
+  }
+
+  nextImage();
+});
+// 73 73 21316
+// 73 73 21316
+// 73 73 21316
+// ...
 ```
 
 ## Support
 * gif (static/animation)
 * png, jpeg
+
+## Known issues
+* [IE9,IE10 Security Error](https://github.com/kangax/fabric.js/issues/1957#issuecomment-101674049)
 
 License
 ---

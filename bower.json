@@ -1,8 +1,16 @@
 {
   "name": "pixel",
-  "description": "Get the Animated/Static ImageData",
+  "main": "pixel.min.js",
+  "description": "Parse file/buffer/datauri to ImageData in cross-platform",
 
-  "main": "pixel.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "*.coffee",
+    "src",
+    "test"
+  ],
 
   "authors": [
     "59naga <i59naga@icloud.com>"
@@ -10,10 +18,4 @@
   "homepage": "https://github.com/59naga/pixel",
 
   "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test"
-  ]
 }

@@ -3,8 +3,9 @@ Promise= require 'bluebird'
 
 GifReader= (require 'omggif').GifReader
 
-jpeg= require 'jpeg-js'
-pngparse= require 'pngparse'
+unless window?
+  jpeg= require 'jpeg-js'
+  pngparse= require 'pngparse'
 
 # Public
 class Parser
@@ -35,15 +36,23 @@ class Parser
 
     URL.createObjectURL new Blob [data],{type:mimeType}
 
+  # http://www.html5.jp/canvas/ref/method/getImageData.html
+  createImageData: (width,height)->
+    if document?
+      context= document.createElement('canvas').getContext '2d'
+
+      ImageData= context.createImageData width,height
+    else
+      {}
+
   gif: (buffer)->
-    new Promise (resolve)->
+    new Promise (resolve)=>
       reader= new GifReader buffer
 
       images=
         for i in [0...reader.numFrames()]
 
-          image= {}
-          image= new ImageData reader.width,reader.height if ImageData?
+          image= @createImageData reader.width,reader.height
           image[key]= value for key,value of reader.frameInfo i
           image.delay= image.delay*10 if image.delay # bugfix
           image.data= new Uint8Array reader.width * reader.height * 4

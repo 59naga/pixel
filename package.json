@@ -1,7 +1,7 @@
 {
   "name": "pixel",
-  "version": "0.0.0-alpha.1",
-  "description": "Cross-platform ImageData",
+  "version": "0.0.0-alpha.2",
+  "description": "Parse file/buffer/datauri to ImageData in cross-platform",
 
   "files": [
     "index.js",
@@ -16,37 +16,47 @@
   "scripts": {
     "default": "jasminetea test --verbose --lint",
     "cover": "$(opc package scripts.default) --cover --report",
-    "localhost": "zuul test/spec.coffee --ui jasmine2 --local 59798 --open",
 
     "Developer commands":"",
       "start": "$(opc package scripts.default) --watch",
+
+      "build-dev": "$(opc package browserify) > $(opc bower main).js",
+
+      "Note": "Doesnt read .zuul.yml",
+      "localhost": "zuul test/spec.coffee --ui jasmine2 --local 59798 --open",
 
     "Travis-CI commands":"",
       "test": "npm run cover",
       "posttest": "zuul test/spec.coffee --report",
 
     "Npm update via Travis-CI":"",
-      "prepublish": "if [ $TRAVIS_BUILD_PASSED ]; then npm run compile; fi",
+      "prepublish": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && npm run compile || echo skip prepublish",
       
       "compile": "coffee --bare --compile index.coffee",
       "postcompile": "coffee --output lib --bare --compile src",
 
     "Bower build":"",
-      "build": "$(opc package scripts.browserify) | uglifyjs -cm > $(opc bower main)",
+      "build": "$(opc package browserify) | uglifyjs -cm > $(opc bower name).min.js",
       "postbuild": "wc -c $(opc bower main)",
-
-      "browserify": "browserify ./src -t coffeeify -s Pixel --extension .coffee",
 
     "Bower update":"",
       "update": "git tag v$(opc package version) && git push --tags"
   },
+  "browserify": [
+    "browserify ./src",
+    "--transform coffeeify",
+    "--standalone Pixel",
+    "--extension .coffee",
+    "--exclude jpeg-js",
+    "--exclude pngparse",
+    "--exclude request"
+  ],
   
   "author": "59naga <i59naga@icloud.com> (http://berabou.me)",
   "license": "MIT",
   "dependencies": {
     "bluebird": "^2.9.25",
     "jpeg-js": "^0.1.1",
-    "node-png": "^0.4.3",
     "omggif": "^1.0.6",
     "pngparse": "^2.0.1",
     "request": "^2.55.0"
@@ -54,9 +64,10 @@
   "devDependencies": {
     "brfs": "^1.4.0",
     "browserify": "^10.2.1",
+    "coffee-script": "^1.9.2",
     "coffeeify": "^1.1.0",
     "ghooks": "^0.3.2",
-    "jasminetea": "^0.2.0-alpha.3",
+    "jasminetea": "^0.2.0-beta.1",
     "object-parser-cli": "0.0.0",
     "uglify-js": "^2.4.23",
     "zuul": "^3.0.0"
