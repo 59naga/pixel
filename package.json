@@ -27,7 +27,7 @@
 
     "Travis-CI commands":"",
       "test": "npm run cover",
-      "posttest": "zuul test/spec.coffee --report",
+      "posttest": "zuul test/spec.coffee --report && echo Perfect posttest || echo Ignored posttest",
 
     "Npm update via Travis-CI":"",
       "prepublish": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && npm run compile || echo skip prepublish",
