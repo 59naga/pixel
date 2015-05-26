@@ -60,11 +60,16 @@ class Parser
 
           image
 
+      images.loopCount= reader.loopCount()
+      images.loopCount?= -1
       resolve images
 
   jpg: (buffer)->
     new Promise (resolve)->
-      resolve [jpeg.decode buffer]
+      images= [jpeg.decode buffer]
+
+      images.loopCount= -1
+      resolve images
 
   png: (buffer)->
     new Promise (resolve,reject)->
@@ -72,7 +77,10 @@ class Parser
         return reject error if error?
 
         image.data= Parser.to4ch image.data,image.channels
-        resolve [image]
+        images= [image]
+        
+        images.loopCount= -1
+        resolve images
 
   @to4ch: (data,channels)->
     if channels<4

@@ -32,6 +32,32 @@ $ bower install pixel --save
 return Array contains one or more `ImageData`.
 > Return the `object` instead of `ImageData` at Node.js
 
+### Example in node.js
+
+```js
+var url= 'https://59naga.github.io/fixtures/animated.GIF';
+
+Pixel.parse(url).then(function(images){
+  var i= 0;
+
+  console.log(images.loopCount); // 0(Infinite)
+
+  var nextImage= function(){
+    var imageData= images[i++];
+    if(imageData==null) return;
+
+    console.log(imageData.width, imageData.height, imageData.data.length);
+    nextImage();
+  }
+
+  nextImage();
+});
+// 73 73 21316
+// 73 73 21316
+// 73 73 21316
+// ...
+```
+
 ### Example in browser
 ```html
 <body>
@@ -43,6 +69,8 @@ var context= canvas.getContext('2d');
 
 Pixel.parse(url).then(function(images){
   var i= 0;
+
+  console.log(images.loopCount); // 0(Infinite)
 
   var nextImage= function(){
     var imageData= images[i++];
@@ -74,30 +102,6 @@ Pixel.parse(url).then(function(images){
 </script>
 
 </body>
-```
-
-### Example in node.js
-
-```js
-var url= 'https://59naga.github.io/fixtures/animated.GIF';
-
-Pixel.parse(url).then(function(images){
-  var i= 0;
-
-  var nextImage= function(){
-    var imageData= images[i++];
-    if(imageData==null) return;
-
-    console.log(imageData.width, imageData.height, imageData.data.length);
-    nextImage();
-  }
-
-  nextImage();
-});
-// 73 73 21316
-// 73 73 21316
-// 73 73 21316
-// ...
 ```
 
 ## Support

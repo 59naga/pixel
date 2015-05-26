@@ -1,6 +1,6 @@
 {
   "name": "pixel",
-  "version": "0.0.0-alpha.2",
+  "version": "0.0.0-alpha.3",
   "description": "Parse file/buffer/datauri to ImageData in cross-platform",
 
   "files": [
@@ -57,7 +57,7 @@
   "dependencies": {
     "bluebird": "^2.9.25",
     "jpeg-js": "^0.1.1",
-    "omggif": "^1.0.6",
+    "omggif": "59naga/omggif",
     "pngparse": "^2.0.1",
     "request": "^2.55.0"
   },

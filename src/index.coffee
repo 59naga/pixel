@@ -56,6 +56,7 @@ class Pixel extends Parser
           context.drawImage image,0,0
 
           imageData= context.getImageData 0,0,image.width,image.height
+          imageData.loopCount= -1
 
           resolve [imageData]
 

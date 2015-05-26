@@ -13,8 +13,9 @@ describe 'Pixel',->
 
       Pixel.parse url
       .then (images)->
-        image= images[0]
+        expect(images.loopCount).toBe -1
 
+        image= images[0]
         expect(image.width).toBe 256
         expect(image.height).toBe 192
         expect(image.data?.length).toBe image.width*image.height*4
@@ -26,6 +27,8 @@ describe 'Pixel',->
 
       Pixel.parse url
       .then (images)->
+        expect(images.loopCount).toBe -1
+        
         image= images[0]
 
         expect(image.width).toBe 96
@@ -39,6 +42,8 @@ describe 'Pixel',->
 
       Pixel.parse url
       .then (images)->
+        expect(images.loopCount).toBe -1
+        
         image= images[0]
 
         expect(image.width).toBe 112
@@ -52,6 +57,8 @@ describe 'Pixel',->
 
       Pixel.parse url
       .then (images)->
+        expect(images.loopCount).toBe 0 # Infinite
+        
         image= images[0]
 
         expect(image.width).toBe 73
@@ -67,6 +74,8 @@ describe 'Pixel',->
 
       Pixel.parse file
       .then (images)->
+        expect(images.loopCount).toBe -1
+        
         image= images[0]
 
         expect(image.width).toBe 112
@@ -80,6 +89,8 @@ describe 'Pixel',->
 
       Pixel.parse url
       .then (images)->
+        expect(images.loopCount).toBe -1
+        
         image= images[0]
 
         expect(image.width).toBe 112
@@ -94,6 +105,8 @@ describe 'Pixel',->
 
       Pixel.parse datauri
       .then (images)->
+        expect(images.loopCount).toBe -1
+        
         image= images[0]
 
         expect(image.width).toBe 112
