@@ -1,15 +1,15 @@
 ui: jasmine2
 browsers:
   - name: chrome
-    version: [latest,beta,dev]
-  - name: firefox
-    version: [latest,beta,dev]
-  - name: safari
-    version: 5..latest
-  - name: opera
-    version: 11..latest
+    version: [latest, dev, beta]
   - name: ie
     version: 9..latest
+  - name: firefox
+    version: [latest, dev, beta]
+  - name: safari
+    version: 7..latest
+  - name: opera
+    version: 11..latest
   - name: iphone
     version: 7.1..latest
   - name: android
