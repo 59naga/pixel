@@ -66,7 +66,10 @@ class Parser
 
   jpg: (buffer)->
     new Promise (resolve)->
-      images= [jpeg.decode buffer]
+      image= jpeg.decode buffer
+      image.data= new Uint8Array image.data
+
+      images= [image]
 
       images.loopCount= -1
       resolve images
@@ -77,6 +80,7 @@ class Parser
         return reject error if error?
 
         image.data= Parser.to4ch image.data,image.channels
+        image.data= new Uint8Array image.data
         images= [image]
         
         images.loopCount= -1
