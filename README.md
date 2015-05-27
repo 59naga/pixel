@@ -10,8 +10,8 @@
 $ npm install pixel --save
 ```
 ```js
-var Pixel= require('pixel');
-console.log(Pixel); //function
+var pixel= require('pixel');
+console.log(pixel); //function
 ```
 
 ### Via bower
@@ -21,13 +21,13 @@ $ bower install pixel --save
 ```html
 <script src="bower_components/pixel/pixel.min.js"></script>
 <script>
-  console.log(Pixel); //function
+  console.log(pixel); //function
 </script>
 ```
 
 # API
 
-## Pixel.parse(`file`) -> promise.then(`images`)
+## pixel.parse(`file`) -> promise.then(`images`)
 
 return `images` is Array contains one or more `ImageData`.
 > Return the `object` instead of `ImageData` at Node.js
@@ -45,7 +45,7 @@ return `images` is Array contains one or more `ImageData`.
 ```js
 var file= 'https://59naga.github.io/fixtures/animated.GIF';
 
-Pixel.parse(file).then(function(images){
+pixel.parse(file).then(function(images){
   var i= 0;
 
   console.log(images.loopCount); // 0(Infinite)
@@ -75,7 +75,7 @@ var file= 'https://59naga.github.io/fixtures/animated.GIF';
 var canvas= document.body.appendChild(document.createElement('canvas'));
 var context= canvas.getContext('2d');
 
-Pixel.parse(file).then(function(images){
+pixel.parse(file).then(function(images){
   var i= 0;
 
   console.log(images.loopCount); // 0(Infinite)
