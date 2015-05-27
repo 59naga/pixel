@@ -15,7 +15,6 @@
   },
   "scripts": {
     "default": "jasminetea test --verbose --lint",
-    "cover": "$(opc package scripts.default) --cover --report",
 
     "Developer commands":"",
       "start": "$(opc package scripts.default) --watch",
@@ -26,6 +25,8 @@
       "localhost": "zuul test/spec.coffee --ui jasmine2 --local 59798 --open",
 
     "Travis-CI commands":"",
+      "cover": "$(opc package scripts.default) --cover --report",
+      
       "test": "npm run cover",
       "posttest": "zuul test/spec.coffee --report && echo Perfect posttest || echo Ignored posttest",
 
