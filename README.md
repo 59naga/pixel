@@ -2,7 +2,7 @@
 
 [![Sauce Test Status][sauce-image]][sauce]
 
-> Parse file/buffer/datauri to ImageData in cross-platform
+> Parse path/url/datauri to ImageData in cross-platform
 
 ## Installation
 ### Via npm
