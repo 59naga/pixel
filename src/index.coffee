@@ -56,9 +56,10 @@ class Pixel extends Parser
           context.drawImage image,0,0
 
           imageData= context.getImageData 0,0,image.width,image.height
-          imageData.loopCount= -1
-
-          resolve [imageData]
+          images= [imageData]
+          
+          images.loopCount= -1
+          resolve images
 
   # Node.js API
   load: (file)->

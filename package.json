@@ -1,6 +1,6 @@
 {
   "name": "pixel",
-  "version": "0.0.0-alpha.3",
+  "version": "0.0.0-alpha.4",
   "description": "Parse file/buffer/datauri to ImageData in cross-platform",
 
   "files": [
