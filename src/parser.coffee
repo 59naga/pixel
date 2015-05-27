@@ -31,7 +31,7 @@ class Parser
     mimeType= datauri.match(/image\/\w*/)?[0]
 
     arrayBuffer= new ArrayBuffer binary.length
-    data= new Uint8Array arrayBuffer
+    data= new Uint8ClampedArray arrayBuffer
     data[i]= binary.charCodeAt i for i in [0..binary.length]
 
     URL.createObjectURL new Blob [data],{type:mimeType}
@@ -55,7 +55,7 @@ class Parser
           image= @createImageData reader.width,reader.height
           image[key]= value for key,value of reader.frameInfo i
           image.delay= image.delay*10 if image.delay # bugfix
-          image.data= new Uint8Array reader.width * reader.height * 4
+          image.data= new Uint8ClampedArray reader.width * reader.height * 4
           reader.decodeAndBlitFrameRGBA i,image.data
 
           image
@@ -67,7 +67,7 @@ class Parser
   jpg: (buffer)->
     new Promise (resolve)->
       image= jpeg.decode buffer
-      image.data= new Uint8Array image.data
+      image.data= new Uint8ClampedArray image.data
 
       images= [image]
 
@@ -80,7 +80,7 @@ class Parser
         return reject error if error?
 
         image.data= Parser.to4ch image.data,image.channels
-        image.data= new Uint8Array image.data
+        image.data= new Uint8ClampedArray image.data
         images= [image]
         
         images.loopCount= -1

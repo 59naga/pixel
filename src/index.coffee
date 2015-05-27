@@ -33,7 +33,7 @@ class Pixel extends Parser
         xhr.onload= =>
           return reject xhr.statusText unless xhr.readyState is 4
 
-          @gif new Uint8Array xhr.response
+          @gif new Uint8ClampedArray xhr.response
           .then (images)->
             resolve images
         xhr.onerror= (error)->

@@ -18,7 +18,7 @@ describe 'Pixel',->
         image= images[0]
         expect(image.width).toBe 256
         expect(image.height).toBe 192
-        expect(image.data instanceof Uint8Array).toBe true
+        expect(image.data instanceof Uint8ClampedArray).toBe true
         expect(image.data?.length).toBe image.width*image.height*4
 
         done()
@@ -34,7 +34,7 @@ describe 'Pixel',->
 
         expect(image.width).toBe 96
         expect(image.height).toBe 96
-        expect(image.data instanceof Uint8Array).toBe true
+        expect(image.data instanceof Uint8ClampedArray).toBe true
         expect(image.data?.length).toBe image.width*image.height*4
 
         done()
@@ -50,7 +50,7 @@ describe 'Pixel',->
 
         expect(image.width).toBe 112
         expect(image.height).toBe 112
-        expect(image.data instanceof Uint8Array).toBe true
+        expect(image.data instanceof Uint8ClampedArray).toBe true
         expect(image.data?.length).toBe image.width*image.height*4
 
         done()
@@ -66,7 +66,7 @@ describe 'Pixel',->
 
         expect(image.width).toBe 73
         expect(image.height).toBe 73
-        expect(image.data instanceof Uint8Array).toBe true
+        expect(image.data instanceof Uint8ClampedArray).toBe true
         expect(image.data?.length).toBe image.width*image.height*4
         expect(images.length).toBe 34
 
@@ -84,7 +84,7 @@ describe 'Pixel',->
 
         expect(image.width).toBe 112
         expect(image.height).toBe 112
-        expect(image.data instanceof Uint8Array).toBe true
+        expect(image.data instanceof Uint8ClampedArray).toBe true
         expect(image.data?.length).toBe image.width*image.height*4
 
         done()
@@ -100,7 +100,7 @@ describe 'Pixel',->
 
         expect(image.width).toBe 112
         expect(image.height).toBe 112
-        expect(image.data instanceof Uint8Array).toBe true
+        expect(image.data instanceof Uint8ClampedArray).toBe true
         expect(image.data?.length).toBe image.width*image.height*4
 
         done()
@@ -117,7 +117,7 @@ describe 'Pixel',->
 
         expect(image.width).toBe 112
         expect(image.height).toBe 112
-        expect(image.data instanceof Uint8Array).toBe true
+        expect(image.data instanceof Uint8ClampedArray).toBe true
         expect(image.data?.length).toBe image.width*image.height*4
 
         done()
