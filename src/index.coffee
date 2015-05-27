@@ -7,6 +7,8 @@ unless window?
   request= require 'request'
   fs= require 'fs'
 
+U8CA= Uint8ClampedArray ? Uint8Array
+
 # Public
 class Pixel extends Parser
   # API
@@ -102,12 +104,12 @@ class Pixel extends Parser
           xhr.onload= =>
             return reject xhr.statusText unless xhr.readyState is 4
 
-            @gif new Uint8ClampedArray xhr.response
+            @gif new U8CA xhr.response
             .then (images)->
               resolve images
 
         else
-          @gif new Uint8ClampedArray file
+          @gif new U8CA file
           .then (images)->
             resolve images
 

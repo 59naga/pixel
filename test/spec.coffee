@@ -2,6 +2,7 @@
 Pixel= require '../src'
 
 fs= require 'fs'
+U8CA= Uint8ClampedArray ? Uint8Array
 Blob= window?.Blob ? require './blob.mock'
 Image= window?.Image ? require './image.mock'
 
@@ -41,7 +42,7 @@ describe 'Pixel',->
 
     it 'blob/gif',->
       arg= fs.readFileSync __dirname+'/fixture.GIF'
-      arg= new Blob [new Uint8ClampedArray arg],{type:'image/gif'}
+      arg= new Blob [new U8CA arg],{type:'image/gif'}
 
       type= Pixel::getType arg
       extension= Pixel::getExtension arg,type
@@ -81,7 +82,7 @@ describe 'Pixel',->
 
         expect(image.width).toBe 112
         expect(image.height).toBe 112
-        expect(image.data instanceof Uint8ClampedArray).toBe true
+        expect(image.data instanceof U8CA).toBe true
         expect(image.data?.length).toBe image.width*image.height*4
 
         done()
@@ -98,7 +99,7 @@ describe 'Pixel',->
 
         expect(image.width).toBe 112
         expect(image.height).toBe 112
-        expect(image.data instanceof Uint8ClampedArray).toBe true
+        expect(image.data instanceof U8CA).toBe true
         expect(image.data?.length).toBe image.width*image.height*4
 
         done()
@@ -114,14 +115,14 @@ describe 'Pixel',->
 
         expect(image.width).toBe 112
         expect(image.height).toBe 112
-        expect(image.data instanceof Uint8ClampedArray).toBe true
+        expect(image.data instanceof U8CA).toBe true
         expect(image.data?.length).toBe image.width*image.height*4
 
         done()
 
     it 'blob',(done)->
       arg= fs.readFileSync __dirname+'/fixture.GIF'
-      arg= new Blob [new Uint8ClampedArray arg],{type:'image/gif'}
+      arg= new Blob [new U8CA arg],{type:'image/gif'}
 
       Pixel.parse arg
       .then (images)->
@@ -131,7 +132,7 @@ describe 'Pixel',->
 
         expect(image.width).toBe 112
         expect(image.height).toBe 112
-        expect(image.data instanceof Uint8ClampedArray).toBe true
+        expect(image.data instanceof U8CA).toBe true
         expect(image.data?.length).toBe image.width*image.height*4
 
         done()
@@ -147,7 +148,7 @@ describe 'Pixel',->
 
         expect(image.width).toBe 112
         expect(image.height).toBe 112
-        expect(image.data instanceof Uint8ClampedArray).toBe true
+        expect(image.data instanceof U8CA).toBe true
         expect(image.data?.length).toBe image.width*image.height*4
 
         done()
@@ -165,7 +166,7 @@ describe 'Pixel',->
 
         expect(image.width).toBe 256
         expect(image.height).toBe 192
-        expect(image.data instanceof Uint8ClampedArray).toBe true
+        expect(image.data instanceof U8CA).toBe true
         expect(image.data?.length).toBe image.width*image.height*4
 
         done()
@@ -181,7 +182,7 @@ describe 'Pixel',->
           image= images[0]
           expect(image.width).toBe 256
           expect(image.height).toBe 192
-          expect(image.data instanceof Uint8ClampedArray).toBe true
+          expect(image.data instanceof U8CA).toBe true
           expect(image.data?.length).toBe image.width*image.height*4
 
           done()
@@ -197,7 +198,7 @@ describe 'Pixel',->
 
           expect(image.width).toBe 96
           expect(image.height).toBe 96
-          expect(image.data instanceof Uint8ClampedArray).toBe true
+          expect(image.data instanceof U8CA).toBe true
           expect(image.data?.length).toBe image.width*image.height*4
 
           done()
@@ -213,7 +214,7 @@ describe 'Pixel',->
 
           expect(image.width).toBe 112
           expect(image.height).toBe 112
-          expect(image.data instanceof Uint8ClampedArray).toBe true
+          expect(image.data instanceof U8CA).toBe true
           expect(image.data?.length).toBe image.width*image.height*4
 
           done()
@@ -229,7 +230,7 @@ describe 'Pixel',->
 
           expect(image.width).toBe 73
           expect(image.height).toBe 73
-          expect(image.data instanceof Uint8ClampedArray).toBe true
+          expect(image.data instanceof U8CA).toBe true
           expect(image.data?.length).toBe image.width*image.height*4
           expect(images.length).toBe 34
 

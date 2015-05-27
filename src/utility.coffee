@@ -1,6 +1,8 @@
 # Dependencies
 imageType= require 'image-type'
 
+U8CA= Uint8ClampedArray ? Uint8Array
+
 # Public
 class Utility
   getType: (file)->
@@ -57,7 +59,7 @@ class Utility
     mimeType= datauri.match(/image\/\w*/)?[0]
 
     arrayBuffer= new ArrayBuffer binary.length
-    data= new Uint8ClampedArray arrayBuffer
+    data= new U8CA arrayBuffer
     data[i]= binary.charCodeAt i for i in [0..binary.length]
 
     URL.createObjectURL new Blob [data],{type:mimeType}

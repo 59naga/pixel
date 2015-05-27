@@ -2,12 +2,13 @@
 Utility= require './utility'
 
 Promise= require 'bluebird'
-
 GifReader= (require 'omggif').GifReader
 
 unless window?
   jpeg= require 'jpeg-js'
   pngparse= require 'pngparse'
+
+U8CA= Uint8ClampedArray ? Uint8Array
 
 # Public
 class Parser extends Utility
@@ -21,7 +22,7 @@ class Parser extends Utility
           image= @createImageData reader.width,reader.height
           image[key]= value for key,value of reader.frameInfo i
           image.delay= image.delay*10 if image.delay # bugfix
-          image.data= new Uint8ClampedArray reader.width * reader.height * 4
+          image.data= new U8CA reader.width * reader.height * 4
           reader.decodeAndBlitFrameRGBA i,image.data
 
           image
@@ -33,7 +34,7 @@ class Parser extends Utility
   jpg: (buffer)->
     new Promise (resolve)->
       image= jpeg.decode buffer
-      image.data= new Uint8ClampedArray image.data
+      image.data= new U8CA image.data
 
       images= [image]
 
@@ -46,7 +47,7 @@ class Parser extends Utility
         return reject error if error?
 
         image.data= @to4ch image.data,image.channels
-        image.data= new Uint8ClampedArray image.data
+        image.data= new U8CA image.data
         images= [image]
         
         images.loopCount= -1
