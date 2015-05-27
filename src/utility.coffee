@@ -1,10 +1,14 @@
 # Dependencies
 imageType= require 'image-type'
 
-U8CA= Uint8ClampedArray ? Uint8Array
-
 # Public
 class Utility
+  Blob: Blob ? ->
+  Buffer: Buffer ? ->
+  Uint8ClampedArray: Uint8ClampedArray ? Uint8Array
+  Image: Image ? ->
+  URL: window?.URL ? window?.webkitURL
+
   getType: (file)->
     switch typeof file
       when 'string'
@@ -22,16 +26,28 @@ class Utility
       else
         'path'
 
-  getClassName: (instance)->
-    switch instance?.constructor?.name
-      when 'Blob' then 'blob'
-      when 'Buffer' then 'buffer'
-      when 'ArrayBuffer' then 'buffer'
-      when 'HTMLImageElement' then 'image'
-      # for mock
-      when 'Uint8Array' then 'blob'
-      when 'Uint8ClampedArray' then 'blob'
-      else throw new TypeError 'Invalid constructor'
+  getClassName: (object)->
+    switch
+      when object instanceof @Buffer
+        'buffer'
+
+      when object instanceof ArrayBuffer
+        'buffer'
+
+      when object instanceof @Blob
+        'blob'
+
+      when object instanceof Uint8Array
+        'buffer'
+
+      when object instanceof @Uint8ClampedArray
+        'buffer'
+
+      when object instanceof @Image
+        'image'
+
+      else
+        'image'
 
   getExtension: (file='',type='url')->
     switch type
@@ -42,30 +58,17 @@ class Utility
       when 'path'
         @getSuffix file
       when 'blob'
-        file.type.split('/')[1]
+        file.type?.split('/')[1]
       when 'buffer'
-        (imageType file).ext
-      when 'image'
-        @getSuffix file.src
+        (imageType file)?.ext
       else
-        throw new TypeError 'Invalid constructor'
+        @getSuffix file.src
 
-  getSuffix: (string)->
+  getSuffix: (string='')->
     suffix= (string.match /.\w+$/)?[0].toLowerCase().slice(1)
     suffix= 'jpg' if suffix is 'jpeg'
     suffix
   
-  # http://stackoverflow.com/questions/4998908/convert-data-uri-to-file-then-append-to-formdata
-  createObjectURL: (datauri)->
-    binary= atob datauri.slice datauri.indexOf(',')+1
-    mimeType= datauri.match(/image\/\w*/)?[0]
-
-    arrayBuffer= new ArrayBuffer binary.length
-    data= new U8CA arrayBuffer
-    data[i]= binary.charCodeAt i for i in [0..binary.length]
-
-    URL.createObjectURL new Blob [data],{type:mimeType}
-
   # http://www.html5.jp/canvas/ref/method/getImageData.html
   createImageData: (width,height)->
     if document?

@@ -8,8 +8,6 @@ unless window?
   jpeg= require 'jpeg-js'
   pngparse= require 'pngparse'
 
-U8CA= Uint8ClampedArray ? Uint8Array
-
 # Public
 class Parser extends Utility
   gif: (buffer)->
@@ -22,7 +20,7 @@ class Parser extends Utility
           image= @createImageData reader.width,reader.height
           image[key]= value for key,value of reader.frameInfo i
           image.delay= image.delay*10 if image.delay # bugfix
-          image.data= new U8CA reader.width * reader.height * 4
+          image.data= new Uint8Array reader.width * reader.height * 4
           reader.decodeAndBlitFrameRGBA i,image.data
 
           image
@@ -34,7 +32,7 @@ class Parser extends Utility
   jpg: (buffer)->
     new Promise (resolve)->
       image= jpeg.decode buffer
-      image.data= new U8CA image.data
+      image.data= new Uint8Array image.data
 
       images= [image]
 
@@ -47,15 +45,22 @@ class Parser extends Utility
         return reject error if error?
 
         image.data= @to4ch image.data,image.channels
-        image.data= new U8CA image.data
+        image.data= new Uint8Array image.data
         images= [image]
         
         images.loopCount= -1
         resolve images
 
-  datauri: (datauri)->
-    new Promise (resolve)->
-      resolve new Buffer (datauri.slice datauri.indexOf(',')+1),'base64'
+  # http://stackoverflow.com/questions/4998908/convert-data-uri-to-file-then-append-to-formdata
+  parseDatauri: (datauri)->
+    binary= atob datauri.slice datauri.indexOf(',')+1
+    mimeType= datauri.match(/image\/\w*/)?[0]
+
+    arrayBuffer= new ArrayBuffer binary.length
+    data= new Uint8Array arrayBuffer
+    data[i]= binary.charCodeAt i for i in [0..binary.length]
+
+    @URL.createObjectURL new Blob [data],{type:mimeType}
 
   to4ch: (data,channels)->
     if channels<4

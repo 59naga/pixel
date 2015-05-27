@@ -1,6 +1,6 @@
 {
   "name": "pixel",
-  "version": "0.0.0-alpha.8",
+  "version": "0.0.0-alpha.9",
   "description": "Parse path/url/datauri to ImageData in cross-platform",
 
   "files": [
@@ -17,7 +17,7 @@
     "default": "jasminetea test --verbose --lint",
 
     "Developer commands":"",
-      "start": "$(opc package scripts.default) --watch --stacktrace",
+      "start": "$(opc package scripts.default) --watch",
 
       "build-dev": "$(opc package browserify) > $(opc bower name).js",
 
@@ -25,10 +25,10 @@
       "localhost": "zuul test/spec.coffee --ui jasmine2 --local 59798 --open",
 
     "Travis-CI commands":"",
-      "cover": "$(opc package scripts.default) --cover --report",
+      "cover": "$(opc package scripts.default) --cover",
       
       "test": "npm run cover",
-      "posttest": "zuul test/spec.coffee --report && echo Perfect posttest || echo Ignored posttest",
+      "posttest": "zuul test/spec.coffee && echo Perfect posttest || echo Ignored posttest",
 
     "Npm update via Travis-CI":"",
       "prepublish": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && npm run compile || echo skip prepublish",

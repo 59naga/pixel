@@ -7,18 +7,13 @@ unless window?
   request= require 'request'
   fs= require 'fs'
 
-U8CA= Uint8ClampedArray ? Uint8Array
-
 # Public
 class Pixel extends Parser
-  # API
-  @parse: (file)->
-    imagedata= new Pixel
-
+  parse: (file)->
     unless window?
-      imagedata.load file
+      @load file
     else
-      imagedata.fetch file
+      @fetch file
 
   # Node.js API
   load: (file)->
@@ -30,15 +25,11 @@ class Pixel extends Parser
         when 'url'
           @request file
         when 'datauri'
-          @datauri file
-        when 'blob'
-          Promise.resolve file
+          @getBuffer file
         when 'buffer'
           Promise.resolve file
         when 'path'
           @readFile file
-        when 'image'
-          @request file.src
         else
           throw new TypeError "#{type} is unsupport type"
 
@@ -57,6 +48,10 @@ class Pixel extends Parser
 
         resolve buffer
 
+  getBuffer: (datauri)->
+    new Promise (resolve)->
+      resolve new Buffer (datauri.slice datauri.indexOf(',')+1),'base64'
+
   readFile: (file)->
     new Promise (resolve)->
       resolve fs.readFileSync file
@@ -66,8 +61,8 @@ class Pixel extends Parser
     type= @getType file
     extension= @getExtension file,type
 
-    file= @createObjectURL file if type is 'datauri'
-    file= URL.createObjectURL file if type is 'blob'
+    file= @parseDatauri file if type is 'datauri'
+    file= @URL.createObjectURL file if type is 'blob'
 
     switch
       when type is 'image'
@@ -104,12 +99,12 @@ class Pixel extends Parser
           xhr.onload= =>
             return reject xhr.statusText unless xhr.readyState is 4
 
-            @gif new U8CA xhr.response
+            @gif new Uint8Array xhr.response
             .then (images)->
               resolve images
 
         else
-          @gif new U8CA file
+          @gif new Uint8Array file
           .then (images)->
             resolve images
 
@@ -133,4 +128,4 @@ class Pixel extends Parser
     images.loopCount= -1
     images
 
-module.exports= Pixel
+module.exports= new Pixel
