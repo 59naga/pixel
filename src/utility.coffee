@@ -28,7 +28,9 @@ class Utility
       when 'Buffer' then 'buffer'
       when 'ArrayBuffer' then 'buffer'
       when 'HTMLImageElement' then 'image'
-      when 'Uint8ClampedArray' then 'blob'# for mock
+      # for mock
+      when 'Uint8Array' then 'blob'
+      when 'Uint8ClampedArray' then 'blob'
       else throw new TypeError 'Invalid constructor'
 
   getExtension: (file='',type='url')->
