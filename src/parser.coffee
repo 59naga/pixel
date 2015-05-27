@@ -1,4 +1,6 @@
 # Dependencies
+Utility= require './utility'
+
 Promise= require 'bluebird'
 
 GifReader= (require 'omggif').GifReader
@@ -8,43 +10,7 @@ unless window?
   pngparse= require 'pngparse'
 
 # Public
-class Parser
-  getExtension: (file)->
-    (file.match /.\w+$/)?[0].toLowerCase().slice(1)
-    
-  getType: (file)->
-    type= 'url' if file.match /^https?:\/\//
-    type= 'datauri' if file.match /^data:image\//
-    type?= 'file'
-    type
-
-  datauri: (datauri)->
-    new Promise (resolve)->
-      buffer= new Buffer (datauri.slice datauri.indexOf(',')+1),'base64'
-      imageType= (datauri.match /^data:image\/(\w+);/)[1]
-
-      resolve [imageType,buffer]
-
-  # http://stackoverflow.com/questions/4998908/convert-data-uri-to-file-then-append-to-formdata
-  createObjectURL: (datauri)->
-    binary= atob datauri.slice datauri.indexOf(',')+1
-    mimeType= datauri.match(/image\/\w*/)?[0]
-
-    arrayBuffer= new ArrayBuffer binary.length
-    data= new Uint8ClampedArray arrayBuffer
-    data[i]= binary.charCodeAt i for i in [0..binary.length]
-
-    URL.createObjectURL new Blob [data],{type:mimeType}
-
-  # http://www.html5.jp/canvas/ref/method/getImageData.html
-  createImageData: (width,height)->
-    if document?
-      context= document.createElement('canvas').getContext '2d'
-
-      ImageData= context.createImageData width,height
-    else
-      {}
-
+class Parser extends Utility
   gif: (buffer)->
     new Promise (resolve)=>
       reader= new GifReader buffer
@@ -75,18 +41,22 @@ class Parser
       resolve images
 
   png: (buffer)->
-    new Promise (resolve,reject)->
-      pngparse.parse buffer,(error,image)->
+    new Promise (resolve,reject)=>
+      pngparse.parse buffer,(error,image)=>
         return reject error if error?
 
-        image.data= Parser.to4ch image.data,image.channels
+        image.data= @to4ch image.data,image.channels
         image.data= new Uint8ClampedArray image.data
         images= [image]
         
         images.loopCount= -1
         resolve images
 
-  @to4ch: (data,channels)->
+  datauri: (datauri)->
+    new Promise (resolve)->
+      resolve new Buffer (datauri.slice datauri.indexOf(',')+1),'base64'
+
+  to4ch: (data,channels)->
     if channels<4
       frame= []
 

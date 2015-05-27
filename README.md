@@ -2,7 +2,7 @@
 
 [![Sauce Test Status][sauce-image]][sauce]
 
-> Parse path/url/datauri to ImageData in cross-platform
+> Parse file to ImageData in cross-platform
 
 ## Installation
 ### Via npm
@@ -27,17 +27,25 @@ $ bower install pixel --save
 
 # API
 
-## Pixel.parse(`url`/`datauri`/`path`) -> promise
+## Pixel.parse(`file`) -> promise.then(`images`)
 
-return Array contains one or more `ImageData`.
+return `images` is Array contains one or more `ImageData`.
 > Return the `object` instead of `ImageData` at Node.js
+
+`file` is below:
+* string: url (e.g. `http[s]://...`)
+* string: datauri (e.g. `data:image/...`)
+* string: path (unless above)
+* object: Blob
+* object: Buffer/ArrayBuffer
+* object: Image/HTMLImageElement
 
 ### Example in node.js
 
 ```js
-var url= 'https://59naga.github.io/fixtures/animated.GIF';
+var file= 'https://59naga.github.io/fixtures/animated.GIF';
 
-Pixel.parse(url).then(function(images){
+Pixel.parse(file).then(function(images){
   var i= 0;
 
   console.log(images.loopCount); // 0(Infinite)
@@ -63,11 +71,11 @@ Pixel.parse(url).then(function(images){
 <body>
 
 <script>
-var url= 'https://59naga.github.io/fixtures/animated.GIF';
+var file= 'https://59naga.github.io/fixtures/animated.GIF';
 var canvas= document.body.appendChild(document.createElement('canvas'));
 var context= canvas.getContext('2d');
 
-Pixel.parse(url).then(function(images){
+Pixel.parse(file).then(function(images){
   var i= 0;
 
   console.log(images.loopCount); // 0(Infinite)

@@ -1,6 +1,6 @@
 {
   "name": "pixel",
-  "version": "0.0.0-alpha.6",
+  "version": "0.0.0-alpha.7",
   "description": "Parse path/url/datauri to ImageData in cross-platform",
 
   "files": [
@@ -17,9 +17,9 @@
     "default": "jasminetea test --verbose --lint",
 
     "Developer commands":"",
-      "start": "$(opc package scripts.default) --watch",
+      "start": "$(opc package scripts.default) --watch --stacktrace",
 
-      "build-dev": "$(opc package browserify) > $(opc bower main).js",
+      "build-dev": "$(opc package browserify) > $(opc bower name).js",
 
       "Note": "Doesnt read .zuul.yml",
       "localhost": "zuul test/spec.coffee --ui jasmine2 --local 59798 --open",
@@ -57,6 +57,7 @@
   "license": "MIT",
   "dependencies": {
     "bluebird": "^2.9.25",
+    "image-type": "^2.0.2",
     "jpeg-js": "^0.1.1",
     "omggif": "59naga/omggif",
     "pngparse": "^2.0.1",
