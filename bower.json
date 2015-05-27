@@ -1,7 +1,6 @@
 {
   "name": "pixel",
   "main": "pixel.min.js",
-  "description": "Parse file/buffer/datauri to ImageData in cross-platform",
 
   "ignore": [
     "**/.*",

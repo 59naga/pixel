@@ -1,7 +1,7 @@
 {
   "name": "pixel",
-  "version": "0.0.0-alpha.5",
-  "description": "Parse file/buffer/datauri to ImageData in cross-platform",
+  "version": "0.0.0-alpha.6",
+  "description": "Parse path/url/datauri to ImageData in cross-platform",
 
   "files": [
     "index.js",
