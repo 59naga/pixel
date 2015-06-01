@@ -2,6 +2,15 @@
   "name": "pixel",
   "main": "pixel.min.js",
 
+  "opc-scripts": {
+    "build": [
+      "browserify ./src",
+      "--transform coffeeify",
+      "--standalone pixel",
+      "--extension .coffee"
+    ]
+  },
+
   "ignore": [
     "**/.*",
     "node_modules",

@@ -2,7 +2,7 @@
 
 [![Sauce Test Status][sauce-image]][sauce]
 
-> Parse file to ImageData in cross-platform
+> Get ImageData in cross-platform
 
 ## Installation
 ### Via npm
@@ -35,89 +35,29 @@ return `images` is Array contains one or more `ImageData`.
 `file` is below:
 * string: url (e.g. `http[s]://...`)
 * string: datauri (e.g. `data:image/...`)
-* string: path (unless above)
-* object: Blob
-* object: Buffer/ArrayBuffer
-* object: Image/HTMLImageElement
-
-### Example in node.js
-
-```js
-var file= 'https://59naga.github.io/fixtures/animated.GIF';
-
-pixel.parse(file).then(function(images){
-  var i= 0;
-
-  console.log(images.loopCount); // 0(Infinite)
-
-  var nextImage= function(){
-    var imageData= images[i++];
-    if(imageData==null) return;
-
-    console.log(imageData.width, imageData.height, imageData.data.length);
-    nextImage();
-  }
-
-  nextImage();
-});
-// 73 73 21316
-// 73 73 21316
-// 73 73 21316
-// ...
-```
-
-### Example in browser
-```html
-<body>
-
-<script>
-var file= 'https://59naga.github.io/fixtures/animated.GIF';
-var canvas= document.body.appendChild(document.createElement('canvas'));
-var context= canvas.getContext('2d');
-
-pixel.parse(file).then(function(images){
-  var i= 0;
-
-  console.log(images.loopCount); // 0(Infinite)
-
-  var nextImage= function(){
-    var imageData= images[i++];
-
-    console.log(imageData);
-    // ImageData {
-    //   height: 73, width: 73, data: Uint8ClampedArray[21316],
-    //   delay: 1000, disposal: 0 ...
-    //   
-
-    if(canvas.width!=imageData.width){
-      canvas.width=imageData.width;
-    }
-    if(canvas.height!=imageData.height){
-      canvas.height=imageData.height;
-    }
-    context.putImageData(imageData,0,0);
-
-    if(images[i]==null){
-      i= 0;
-    }
-    if(imageData.delay){
-      setTimeout(nextImage,imageData.delay);
-    }
-  }
-
-  nextImage();
-});
-</script>
-
-</body>
-```
+* string: path (e.g. `/path/to/file`)
+* string: binary (unless above)
+* object: Blob/File
+* object: Buffer/ArrayBuffer/Uint8Array/Uint8ClampedArray
+* object: HTMLImageElement
 
 ## Support
 * gif (static/animation)
-* png, jpeg
+* png (static/animation)
+* jpeg
+* bitmap (24bit or less)
 
 ## Known issues
 * [IE9,IE10 Security Error](https://github.com/kangax/fabric.js/issues/1957#issuecomment-101674049)
+
+# See
+* __pixel__
+* [pixel-util](https://github.com/59naga/pixel-util/)
+* [pixel-gif](https://github.com/59naga/pixel-gif-/)
+* [pixel-png](https://github.com/59naga/pixel-png/)
+* [pixel-jpg](https://github.com/59naga/pixel-jpg/)
+* [pixel-bmp](https://github.com/59naga/pixel-bmp/)
+
 
 License
 ---
