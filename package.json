@@ -17,7 +17,7 @@
 
     "cover": "$(opc package scripts.default) --cover",
     "test": "npm run cover",
-    "posttest": "zuul test/spec.coffee && echo Perfect posttest || echo Ignored posttest",
+    "posttest": "zuul test && echo Perfect posttest || echo Ignored posttest",
 
     "prepublish": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && npm run compile || echo skip prepublish",
     "compile": "coffee --bare --compile index.coffee",
