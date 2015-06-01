@@ -15,7 +15,7 @@
     "localhost": "zuul test --ui jasmine2 --local 59798 --open",
     "build-dev": "$(opc bower opc-scripts.build) > $(opc bower name).js",
 
-    "cover": "$(opc package scripts.default) --cover",
+    "cover": "$(opc package scripts.default) --cover --report",
     "test": "npm run cover",
     "posttest": "zuul test && echo Perfect posttest || echo Ignored posttest",
 
@@ -43,11 +43,10 @@
   "devDependencies": {
     "brfs": "^1.4.0",
     "browserify": "^10.2.1",
-    "coffee-script": "^1.9.2",
     "coffeeify": "^1.1.0",
     "fixture-images": "^0.1.4",
     "ghooks": "^0.3.2",
-    "jasminetea": "^0.2.0-beta.1",
+    "jasminetea": "^0.2.0-beta.2",
     "object-parser-cli": "0.0.0",
     "uglify-js": "^2.4.23",
     "zuul": "^3.0.0"
