@@ -58,7 +58,7 @@ describe 'Gif',->
 
     itFuture= if Blob? then it else xit
     itFuture 'blob',(done)->
-      blob= new Blob [fixture.animated.gif],{type:'image/gif'}
+      blob= new Blob [new Uint8Array(fixture.animated.gif)],{type:'image/gif'}
 
       pixel.parse blob
       .then (images)->

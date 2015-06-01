@@ -38,13 +38,13 @@
     "pixel-gif": "0.0.0-alpha.0",
     "pixel-jpg": "0.0.0-alpha.0",
     "pixel-png": "0.0.0-alpha.0",
-    "pixel-util": "0.0.0-beta.0"
+    "pixel-util": "0.0.0-beta.1"
   },
   "devDependencies": {
     "brfs": "^1.4.0",
     "browserify": "^10.2.1",
     "coffeeify": "^1.1.0",
-    "fixture-images": "^0.1.4",
+    "fixture-images": "^0.1.5",
     "ghooks": "^0.3.2",
     "jasminetea": "^0.2.0-beta.2",
     "object-parser-cli": "0.0.0",
