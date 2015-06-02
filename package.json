@@ -1,6 +1,6 @@
 {
   "name": "pixel",
-  "version": "0.0.0-beta.1",
+  "version": "0.0.0-beta.2",
   "description": "Parse file to ImageData in cross-platform",
 
   "files": [
@@ -23,6 +23,7 @@
     "compile": "coffee --bare --compile index.coffee",
     "postcompile": "coffee --output lib --bare --compile src",
 
+    "prebuild": "npm dedupe",
     "build": "$(opc bower opc-scripts.build) | uglifyjs -cm > $(opc bower name).min.js",
     "postbuild": "wc -c $(opc bower main)",
     "update": "git tag v$(opc package version) && git push --tags"
@@ -34,11 +35,11 @@
   },
 
   "dependencies": {
-    "pixel-bmp": "0.0.0-alpha.0",
-    "pixel-gif": "0.0.0-alpha.0",
-    "pixel-jpg": "0.0.0-alpha.0",
-    "pixel-png": "0.0.0-alpha.0",
-    "pixel-util": "0.0.0-beta.1"
+    "pixel-bmp": "0.0.0-alpha.1",
+    "pixel-gif": "0.0.0-alpha.1",
+    "pixel-jpg": "0.0.0-alpha.1",
+    "pixel-png": "0.0.0-alpha.1",
+    "pixel-util": "0.0.0-beta.2"
   },
   "devDependencies": {
     "brfs": "^1.4.0",

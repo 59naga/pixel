@@ -11,7 +11,7 @@ $ npm install pixel --save
 ```
 ```js
 var pixel= require('pixel');
-console.log(pixel); //function
+console.log(pixel); //object
 ```
 
 ### Via bower
@@ -21,7 +21,7 @@ $ bower install pixel --save
 ```html
 <script src="bower_components/pixel/pixel.min.js"></script>
 <script>
-  console.log(pixel); //function
+  console.log(pixel); //object
 </script>
 ```
 
