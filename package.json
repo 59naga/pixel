@@ -1,6 +1,6 @@
 {
   "name": "pixel",
-  "version": "0.0.0-beta.2",
+  "version": "0.0.0",
   "description": "Parse file to ImageData in cross-platform",
 
   "files": [
@@ -9,7 +9,7 @@
   ],
 
   "scripts": {
-    "default": "jasminetea test --file index.coffee --verbose --lint",
+    "default": "jasminetea --file index.coffee --lint",
 
     "start": "$(opc package scripts.default) --watch",
     "localhost": "zuul test --ui jasmine2 --local 59798 --open",
@@ -23,9 +23,9 @@
     "compile": "coffee --bare --compile index.coffee",
     "postcompile": "coffee --output lib --bare --compile src",
 
-    "prebuild": "npm dedupe",
-    "build": "$(opc bower opc-scripts.build) | uglifyjs -cm > $(opc bower name).min.js",
-    "postbuild": "wc -c $(opc bower main)",
+    "prebuild": "$(opc bower opc-scripts.build) | exorcist $(opc bower name).js.map > $(opc bower name).js",
+    "build": "$(opc bower opc-scripts.uglify)",
+    "postbuild": "rm $(opc bower name).js $(opc bower name).js.map && wc -c $(opc bower main)",
     "update": "git tag v$(opc package version) && git push --tags"
   },
   "config": {
@@ -45,9 +45,10 @@
     "brfs": "^1.4.0",
     "browserify": "^10.2.1",
     "coffeeify": "^1.1.0",
+    "exorcist": "^0.4.0",
     "fixture-images": "^0.1.5",
     "ghooks": "^0.3.2",
-    "jasminetea": "^0.2.0-beta.2",
+    "jasminetea": "^0.2.1-alpha.2",
     "object-parser-cli": "0.0.0",
     "uglify-js": "^2.4.23",
     "zuul": "^3.0.0"

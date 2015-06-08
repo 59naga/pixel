@@ -7,8 +7,24 @@
       "browserify ./src",
       "--transform coffeeify",
       "--standalone pixel",
-      "--extension .coffee"
-    ]
+      "--extension .coffee",
+      "--debug"
+    ],
+    "uglify": [
+      "uglifyjs",
+
+      "pixel.js",
+      "--in-source-map",
+      "pixel.js.map",
+
+      "--mangle",
+      "--compress",
+
+      "--output",
+      "pixel.min.js",
+      "--source-map",
+      "pixel.min.js.map"
+     ]
   },
 
   "ignore": [
