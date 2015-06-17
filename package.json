@@ -1,6 +1,6 @@
 {
   "name": "pixel",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.1-alpha.1",
   "description": "Parse file to ImageData in cross-platform",
 
   "files": [
@@ -12,15 +12,12 @@
   },
 
   "scripts": {
-    "default": "jasminetea --file index.coffee --lint",
-
-    "start": "$(opc package scripts.default) --watch",
+    "start": "jasminetea --file index.coffee --lint --watch",
     "localhost": "zuul test --ui jasmine2 --local 59798 --open",
     "build-dev": "$(opc bower opc-scripts.build) > $(opc bower name).js",
 
-    "cover": "$(opc package scripts.default) --cover --report",
-    "test": "npm run cover",
-    "posttest": "zuul test && echo Perfect posttest || echo Ignored posttest",
+    "test": "jasminetea --file index.coffee --cover --report --lint",
+    "test-cloud": "zuul test",
 
     "prepublish": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && npm run compile || echo skip prepublish",
     "compile": "coffee --bare --compile index.coffee",
@@ -33,16 +30,16 @@
   },
   "config": {
     "ghooks": {
-      "pre-commit": "npm run cover"
+      "pre-commit": "npm test"
     }
   },
 
   "dependencies": {
-    "pixel-bmp": "0.0.0-alpha.1",
-    "pixel-gif": "0.0.0-alpha.1",
-    "pixel-jpg": "0.0.0-alpha.1",
-    "pixel-png": "0.0.0-alpha.1",
-    "pixel-util": "0.0.0-beta.2"
+    "pixel-bmp": "^0.0.0-alpha.2",
+    "pixel-gif": "^0.0.0-alpha.1",
+    "pixel-jpg": "^0.0.0-alpha.3",
+    "pixel-png": "^0.0.0-alpha.2",
+    "pixel-util": "^0.0.0-beta.3"
   },
   "devDependencies": {
     "brfs": "^1.4.0",
@@ -54,6 +51,7 @@
     "jasminetea": "^0.2.1-alpha.2",
     "object-parser-cli": "0.0.0",
     "uglify-js": "^2.4.23",
+    "varify": "^0.1.1",
     "zuul": "^3.0.0"
   },
   

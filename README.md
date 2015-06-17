@@ -32,7 +32,35 @@ $ bower install pixel --save
 return `images` is Array contains one or more `ImageData`.
 > Return the `object` instead of `ImageData` at Node.js
 
-`file` is below:
+```js
+var gif= 'https://59naga.github.io/fixtures/animated.GIF';
+pixel.parse(gif).then(function(images){
+  console.log(images.loopCount); // 0(Infinite)
+  console.log(images[0]);
+});
+// { width: 73, height: 73, data: <Uint8Array ..>, x: 0, y: 0, has_local_palette: false, palette_offset: 13, data_offset: 818, data_length: 393, transparent_index: null, interlaced: false, delay: 1000, disposal: 0 }
+
+var png= 'https://59naga.github.io/fixtures/animated.PNG';
+pixel.parse(png).then(function(images){
+  console.log(images.numPlays); // 0(Infinite)
+  console.log(images[0]);
+});
+// { width: 73, height: 73, data: <Uint8Array ..>, left: 0, top: 0, delay: 1000, disposeOp: 0, blendOp: 0 }
+
+var jpg= 'https://59naga.github.io/fixtures/still.JPG';
+pixel.parse(jpg).then(function(images){
+  console.log(images[0]);
+});
+// {width: 256, height: 192, data: <Uint8Array ..>}
+
+var bmp= 'https://59naga.github.io/fixtures/still.BMP';
+pixel.parse(bmp).then(function(images){
+  console.log(images[0]);
+});
+// {width: 128, height: 128, data: <Uint8Array ..>}
+```
+
+`file`:
 * string: url (e.g. `http[s]://...`)
 * string: datauri (e.g. `data:image/...`)
 * string: path (e.g. `/path/to/file`)
@@ -50,14 +78,15 @@ return `images` is Array contains one or more `ImageData`.
 ## Known issues
 * [IE9,IE10 Security Error](https://github.com/kangax/fabric.js/issues/1957#issuecomment-101674049)
 
-# See
-* __pixel__
+# Related projects
 * [pixel-util](https://github.com/59naga/pixel-util/)
 * [pixel-gif](https://github.com/59naga/pixel-gif-/)
 * [pixel-png](https://github.com/59naga/pixel-png/)
 * [pixel-jpg](https://github.com/59naga/pixel-jpg/)
 * [pixel-bmp](https://github.com/59naga/pixel-bmp/)
-
+* __pixel__
+* [pixel-to-ansi](https://github.com/59naga/pixel-to-ansi/)
+* [pixel-to-svg](https://github.com/59naga/pixel-to-svg/)
 
 License
 ---

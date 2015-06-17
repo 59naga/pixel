@@ -17,7 +17,6 @@ browsers:
 
 browserify:
   - transform: coffeeify
-  - transform: brfs
   - options:
       extensions:
         - .js
