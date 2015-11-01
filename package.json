@@ -1,15 +1,12 @@
 {
   "name": "pixel",
-  "version": "0.0.1-alpha.2",
+  "version": "0.0.1",
   "description": "Parse file to ImageData in cross-platform",
 
+  "main": "lib",
   "files": [
-    "index.js",
     "lib"
   ],
-  "browser": {
-    "./src": false
-  },
 
   "scripts": {
     "start": "jasminetea --file index.coffee --lint --watch",
@@ -20,8 +17,7 @@
     "test-cloud": "zuul test",
 
     "prepublish": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && npm run compile || echo skip prepublish",
-    "compile": "coffee --bare --compile index.coffee",
-    "postcompile": "coffee --output lib --bare --compile src",
+    "compile": "coffee --output lib --bare --compile src",
 
     "prebuild": "$(opc bower opc-scripts.build) | exorcist $(opc bower name).js.map > $(opc bower name).js",
     "build": "$(opc bower opc-scripts.uglify)",
