@@ -1,6 +1,6 @@
 {
   "name": "pixel",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Parse file to ImageData in cross-platform",
 
   "main": "lib",
@@ -31,11 +31,11 @@
   },
 
   "dependencies": {
-    "pixel-bmp": "^0.0.0",
-    "pixel-gif": "^0.0.0",
-    "pixel-jpg": "^0.0.0",
-    "pixel-png": "^0.0.0",
-    "pixel-util": "^0.0.1"
+    "pixel-bmp": "^0.0.1",
+    "pixel-gif": "^0.0.1",
+    "pixel-jpg": "^0.0.1",
+    "pixel-png": "^0.0.1",
+    "pixel-util": "^0.0.2"
   },
   "devDependencies": {
     "brfs": "^1.4.1",
