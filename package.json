@@ -1,24 +1,19 @@
 {
   "name": "pixel",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Parse file to ImageData in cross-platform",
-
   "main": "lib",
   "files": [
     "lib"
   ],
-
   "scripts": {
     "start": "jasminetea --file index.coffee --lint --watch",
     "localhost": "zuul test --ui jasmine2 --local 59798 --open",
     "build-dev": "$(opc bower opc-scripts.build) > $(opc bower name).js",
-
     "test": "jasminetea --file index.coffee --cover --report --lint",
     "test-cloud": "zuul test",
-
     "prepublish": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && npm run compile || echo skip prepublish",
     "compile": "coffee --output lib --bare --compile src",
-
     "prebuild": "$(opc bower opc-scripts.build) | exorcist $(opc bower name).js.map > $(opc bower name).js",
     "build": "$(opc bower opc-scripts.uglify)",
     "postbuild": "rm $(opc bower name).js $(opc bower name).js.map && wc -c $(opc bower main)",
@@ -29,7 +24,6 @@
       "pre-commit": "npm test"
     }
   },
-
   "dependencies": {
     "pixel-bmp": "^0.0.0",
     "pixel-gif": "^0.0.0",
@@ -50,7 +44,6 @@
     "varify": "^0.1.1",
     "zuul": "^3.7.2"
   },
-  
   "keywords": [
     "pixel",
     "png",
