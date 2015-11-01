@@ -31,24 +31,24 @@
   },
 
   "dependencies": {
-    "pixel-bmp": "^0.0.0-alpha.3",
-    "pixel-gif": "^0.0.0-alpha.1",
-    "pixel-jpg": "^0.0.0-alpha.3",
-    "pixel-png": "^0.0.0-alpha.2",
-    "pixel-util": "^0.0.0-beta.3"
+    "pixel-bmp": "^0.0.0",
+    "pixel-gif": "^0.0.0",
+    "pixel-jpg": "^0.0.0",
+    "pixel-png": "^0.0.0",
+    "pixel-util": "^0.0.1"
   },
   "devDependencies": {
-    "brfs": "^1.4.0",
-    "browserify": "^10.2.1",
+    "brfs": "^1.4.1",
+    "browserify": "^12.0.1",
     "coffeeify": "^1.1.0",
     "exorcist": "^0.4.0",
     "fixture-images": "^0.1.5",
     "ghooks": "^0.3.2",
-    "jasminetea": "^0.2.1-alpha.2",
-    "object-parser-cli": "0.0.0",
-    "uglify-js": "^2.4.23",
+    "jasminetea": "^0.2.1",
+    "object-parser-cli": "^0.0.1",
+    "uglify-js": "^2.5.0",
     "varify": "^0.1.1",
-    "zuul": "^3.0.0"
+    "zuul": "^3.7.2"
   },
   
   "keywords": [
