@@ -11,10 +11,10 @@ module.exports = [
   {
     mode: 'production',
     target: 'web',
+    devtool: 'cheap-module-source-map',
     node: {
       fs: 'empty'
     },
-    devtool: 'cheap-module-source-map',
     output: {
       path: __dirname,
       filename: 'index.browser.js',
