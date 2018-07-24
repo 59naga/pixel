@@ -16,7 +16,7 @@ Installation
 
 ## for NodeJS
 ```bash
-$ yarn add -D pixel
+$ yarn add pixel
 # or
 $ npm install pixel --save
 ```
