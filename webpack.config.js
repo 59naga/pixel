@@ -5,7 +5,10 @@ module.exports = [
     devtool: 'cheap-module-source-map',
     output: {
       path: __dirname,
-      filename: 'index.js'
+      filename: 'index.js',
+      libraryTarget: 'umd',
+      // https://github.com/webpack/webpack/issues/3929#issuecomment-306063585
+      libraryExport: 'default'
     }
   },
   {
