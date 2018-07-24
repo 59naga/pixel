@@ -23,7 +23,7 @@ $ npm install pixel --save
 
 ## for Browser
 ```html
-<script src="https://unpkg.com/pixel/index.js"></script>
+<script src="https://unpkg.com/pixel"></script>
 <script>
   console.log(pixel); //function
 </script>
