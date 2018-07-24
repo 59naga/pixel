@@ -6,7 +6,9 @@
   "unpkg": "index.browser.js",
   "files": [
     "index.js",
+    "index.js.map",
     "index.browser.js",
+    "index.browser.js.map",
     "index.mjs",
     "yarn.lock"
   ],
