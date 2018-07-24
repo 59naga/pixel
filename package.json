@@ -1,6 +1,6 @@
 {
   "name": "pixel",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Parse file to ImageData in cross-platform",
   "files": [
     "index.js",
